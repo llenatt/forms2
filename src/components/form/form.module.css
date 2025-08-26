@@ -1,0 +1,20 @@
+.formContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5%;
+}
+
+.formContainer__form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 50%;
+}
+.formContainer__input {
+	font-size: large;
+}
+.error {
+	color: red;
+	font-size: 1em;
+}
