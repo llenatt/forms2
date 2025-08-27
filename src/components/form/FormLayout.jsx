@@ -1,36 +1,32 @@
+import { InputField } from '../ui/InputField';
 import styles from './formLayout.module.css';
 
-export const FormLayout = ({ register, handleSubmit, errors, sendFormData }) => {
+export const FormLayout = ({ register, handleSubmit, sendFormData, errors, isValid }) => {
 	return (
 		<div>
 			<form className={styles.form} onSubmit={handleSubmit(sendFormData)}>
-				<input
-					className={styles.input}
+				<InputField
 					name="email"
+					register={register}
+					placeholder="Введите email"
 					type="email"
-					placeholder="Email"
-					{...register('email')}
-				></input>
-
-				<input
-					className={styles.input}
+					errors={errors.email?.message}
+				/>
+				<InputField
 					name="password"
-					type="text"
-					placeholder="Password"
-					{...register('password')}
-				></input>
-
-				<input
-					className={styles.input}
-					name="repetedPassword"
-					type="text"
-					placeholder="Repeat your password"
-					{...register('repetedPassword')}
-				></input>
-				<div className={styles.error}>{errors.email?.message}</div>
-				<div className={styles.error}>{errors.password?.message}</div>
-				<div className={styles.error}>{errors.repeatedPassword?.message}</div>
-				<button type="submit">Зарегистрироваться</button>
+					register={register}
+					placeholder="Введите пароль"
+					type="password"
+					errors={errors.password?.message}
+				/>
+				<InputField
+					name="repeatedPassword"
+					register={register}
+					placeholder="Повторите пароль"
+					type="password"
+					errors={errors.repeatedPassword?.message}
+				/>
+				<button disabled={!isValid}>Регистрация</button>
 			</form>
 		</div>
 	);

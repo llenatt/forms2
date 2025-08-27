@@ -1,0 +1,12 @@
+.inputContainer {
+	display: flex;
+	flex-direction: column;
+}
+.input {
+	font-size: 1em;
+}
+.error {
+	font-size: 70%;
+	color: red;
+	text-align: left;
+}

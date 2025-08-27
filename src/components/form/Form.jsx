@@ -4,21 +4,22 @@ import { useForm } from 'react-hook-form';
 import { FormLayout } from './FormLayout';
 
 const sendFormData = (formData) => {
-	console.log(formData);
+	console.log({ ...formData });
 };
+
 const schema = yup.object({
 	email: yup
 		.string()
 		.required('Введите email')
 		.matches(
-			/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-			'Неверный формат. Пример: example@mail.com',
+			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+			'Введён email неверного формата',
 		),
 	password: yup
 		.string()
-		.min(6, 'Пароль должен содержать минимум 6 символов')
-		.required('Введите пароль'),
-	repetedPassword: yup
+		.required('Введите пароль')
+		.min(6, 'Пароль должен содержать минимум 6 символов'),
+	repeatedPassword: yup
 		.string()
 		.required('Повторите пароль')
 		.oneOf([yup.ref('password')], 'Пароли не совпадают'),
@@ -28,23 +29,23 @@ export const Form = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
-			repetedPassword: '',
+			repeatedPassword: '',
 		},
 		resolver: yupResolver(schema),
 	});
-
 	return (
 		<div>
 			<FormLayout
 				register={register}
 				handleSubmit={handleSubmit}
-				sendFormData={sendFormData}
 				errors={errors}
+				sendFormData={sendFormData}
+				isValid={isValid}
 			/>
 		</div>
 	);
